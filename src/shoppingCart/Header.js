@@ -6,7 +6,7 @@ function Header() {
   const { cart } = useContext(ProductContext);
   return (
     <nav>
-      <h1>Ecommerce Website</h1>
+      <h1><NavLink to="/">Ecommerce Website</NavLink></h1>
       <ul>
         <li>
           <NavLink to="/">Home</NavLink>

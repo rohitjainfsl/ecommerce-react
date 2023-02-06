@@ -5,6 +5,9 @@ import ProductListing from "./ProductListing";
 import ProductContext from "./ProductContext";
 import "./shoppingCart.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import About from "./About";
+import Contact from "./Contact";
+import Cart from "./Cart";
 
 function Home() {
   const [products, setProducts] = useState([]);
@@ -40,6 +43,9 @@ function Home() {
           <Header />
           <Routes>
             <Route path="/" element={<ProductListing />}></Route>
+            <Route path="/about" element={<About />}></Route>
+            <Route path="/contact" element={<Contact />}></Route>
+            <Route path="/cart" element={<Cart />}></Route>
           </Routes>
         </BrowserRouter>
       </ProductContext.Provider>
