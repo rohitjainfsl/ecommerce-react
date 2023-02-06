@@ -8,7 +8,7 @@ function ProductListing() {
       {products.map((product, index) => {
         return (
           <div className="product" key={index}>
-            <img src={product.thumbnail}></img>
+            <img src={product.image}></img>
             <a href="" onClick={(e) => addToCart(e, index)}>
               Add To Cart
             </a>
