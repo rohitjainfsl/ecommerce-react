@@ -20,7 +20,7 @@ function Home() {
   useEffect(() => {
     function getRandomData() {
       axios.get("https://fakestoreapi.com/products").then((response) => {
-        console.log(response.data);
+        // console.log(response.data);
         setProducts(response.data);
       });
     }
@@ -49,14 +49,7 @@ function Home() {
           </Routes>
         </BrowserRouter>
       </ProductContext.Provider>
-      <div>
-        {/* <header>
-        <h1>Shopping Cart</h1>
-        <a className="cart">
-          Cart <span className="cartCount">{cart.length}</span>
-        </a>
-      </header> */}
-      </div>
+      
     </>
   );
 }

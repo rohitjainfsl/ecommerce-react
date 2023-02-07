@@ -5,11 +5,11 @@ function ProductListing() {
   const { products, addToCart } = useContext(ProductContext);
   return (
     <div className="products">
-      {products.map((product, index) => {
+      {products.map((product) => {
         return (
-          <div className="product" key={index}>
+          <div className="product" key={product.id} id={product.id}>
             <img src={product.image}></img>
-            <a href="" onClick={(e) => addToCart(e, index)}>
+            <a href="" onClick={(e) => addToCart(e, product.id)}>
               Add To Cart
             </a>
           </div>
