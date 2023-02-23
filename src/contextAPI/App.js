@@ -9,7 +9,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 function App() {
   const [cart, setCart] = useState(
-    (localStorage.getItem("cartItems") === null)
+    localStorage.getItem("cartItems") === null
       ? []
       : JSON.parse(localStorage.getItem("cartItems"))
   );
@@ -20,7 +20,6 @@ function App() {
 
   function addToCart(e, productParams) {
     e.preventDefault();
-    console.log("Hello");
     setCart([...cart, productParams]);
   }
 
