@@ -1,77 +1,55 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { cartContext } from "./cartContext";
 
 function Cart() {
   const { cart, setCart } = useContext(cartContext);
-  const [quantity, setQuantity] = useState(1);
-  const [quantities, setQuantities] = useState([]);
+  const [init, setInit] = useState(1)
 
-  function deleteFromCart(e, productId) {
+  useEffect(() => {
+    if (localStorage.getItem("cartItems") !== null) {
+      localStorage.setItem("cartItems", JSON.stringify(cart));
+    }
+  }, [cart]);
+
+  function handleDelete(e, itemId) {
     e.preventDefault();
     setCart(
-      cart.filter((item) => {
-        return item.id !== productId;
+      cart.filter((product) => {
+        return product.id !== itemId;
       })
     );
   }
 
-  function handleQuantityChange(productId) {
-    setQuantities(
-      quantities[productId?.quantity] !== null
-        ? [
-            ...quantities,
-            { quantity: quantities[productId.quantity] + 1, id: productId },
-          ]
-        : [...quantities, { quantity: 1, id: productId }]
-    );
+  function UpdateQuantity(props){
+    return (
+      <input type='number' value='1'  />
+    )
   }
+
   console.log(cart);
-
-  let initialTotal = 0;
-  for (let i = 0; i < cart.length; i++) {
-    initialTotal += Math.round(cart[i].price * 85);
-  }
-  // console.log(initialTotal)
-
   return (
     <div className="cart">
-      <h1>Cart</h1>
-      {cart !== null ? (
-        <div className="cartItems">
-          {cart.map((product) => (
-            <div className="cartItem" key={product.id}>
-              <img src={product.image}></img>
-              <div>
-                <span>
-                  {product.title.length > 50
-                    ? product.title.slice(0, 50) + "..."
-                    : product.title}
-                </span>
-                <span>INR {Math.round(product.price * 85) * quantity}</span>
-                <a href="" onClick={(e) => deleteFromCart(e, product.id)}>
-                  Delete
-                </a>
-                <p>
-                  <input
-                    type="number"
-                    min="1"
-                    max="10"
-                    value={quantity}
-                    onChange={() => handleQuantityChange(product.id)}
-                  />
-                </p>
+      <div className="items">
+        {cart &&
+          cart.map((item) => {
+            return (
+              <div className="cartItem" key={item.id}>
+                <div className="left">
+                  <img src={item.image} alt={item.title} />
+                </div>
+                <div className="right">
+                  <p>{item.title}</p>
+                  <p>
+                    INR {Math.floor(item.price * 85)}
+                    <a href="" onClick={(e) => handleDelete(e, item.id)}>
+                      Delete
+                    </a>
+                  </p>
+                  <p><UpdateQuantity initialQuantity={init} /></p>
+                </div>
               </div>
-            </div>
-          ))}
-        </div>
-      ) : (
-        <p>Your Cart is empty. Shop something</p>
-      )}
-
-      <div className="cartTotal">
-        <p>
-          <strong>Cart total: </strong> <span>{initialTotal}</span>
-        </p>
+            );
+          })}
       </div>
     </div>
   );
